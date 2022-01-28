@@ -1,4 +1,4 @@
-export default function Header(props: any) {
+export default function Favorites() {
   return (
     <div className="container w-full mx-auto">
       <div className="flex items-center justify-between w-full">

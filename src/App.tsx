@@ -1,20 +1,23 @@
-import React from 'react';
+import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
-import Layout from './components/layout';
-import Home from './pages/home';
+import "./App.css";
+import Layout from "./components/layout";
+import Home from "./pages/home";
+import Search from "./pages/search";
+import Login from "./pages/login";
+import Favorites from "./pages/favorites";
 
 function App() {
   return (
-      <Routes>
-        <Route path="/" element={<Layout />}>
-        <Route path="home" element={<Home />} />
-        <Route path="counter" element={<Counter />} />
-        </Route>
-
-      </Routes>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="search" element={<Search />} />
+        <Route path="favorite" element={<Favorites />} />
+        <Route path="login" element={<Login />} />
+        <Route path="*" element={<div>Not Found</div>} />
+      </Route>
+    </Routes>
   );
 }
 
