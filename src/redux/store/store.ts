@@ -1,7 +1,12 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import searchSlice from "../reducers/searchSlice";
+import favoriteSlice from "../reducers/favoriteSlice";
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    search: searchSlice.reducer,
+    favorite: favoriteSlice.reducer,
+  },
 });
 
 export type AppDispatch = typeof store.dispatch;

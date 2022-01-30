@@ -18,19 +18,19 @@ const initialState: SearchState = {
 export const getSearchValueAsync = createAsyncThunk(
   "search/getSearchValueAsync",
   async (
-    { query, token }: { query: string; token: string },
+    query: any,
     { getState, requestId }: { getState: () => any; requestId: string }
   ) => {
     const { currentRequestId, status } = getState().search;
     if (status !== "pending" || requestId !== currentRequestId) {
       return;
     }
-    const response: any = await getSearchQuery(query, token);
-    return response.data;
+    const response: any = await getSearchQuery(query);
+    return response?.data;
   }
 );
 
-export const searchSlice = createSlice({
+const searchSlice = createSlice({
   name: "search",
   initialState,
   reducers: {},
@@ -66,3 +66,5 @@ export const searchSlice = createSlice({
       });
   },
 });
+
+export default searchSlice;

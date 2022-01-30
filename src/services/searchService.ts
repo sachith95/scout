@@ -6,17 +6,17 @@ interface SearchResponse {
   message: string;
   is_error: boolean;
 }
-export function getSearchQuery(query: string, token: string) {
+export function getSearchQuery(query: any) {
   return new Promise((resolve, reject) => {
-    let requestHeader = {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    };
+    // let requestHeader = {
+    //   headers: {
+    //     Authorization: "Bearer " + token,
+    //   },
+    // };
     axios
-      .get(`/search?query=${query}`, requestHeader)
+      .get(`/restaurant?query=${JSON.stringify(query)}`)
       .then((response) => {
-        resolve(response);
+        resolve(response.data);
       })
       .catch((error) => {
         reject(error);
