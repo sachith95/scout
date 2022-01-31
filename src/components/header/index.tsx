@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 export default function Header(props: any) {
+  const navigate = useNavigate();
   return (
     <div className="container w-full mx-auto">
       <div className="flex items-center justify-between w-full">
@@ -11,6 +14,18 @@ export default function Header(props: any) {
             food
           </span>
         </a>
+        {/* logout */}
+        <div className="flex items-center">
+          <button
+            className="px-4 py-2 my-4 font-semibold text-indigo-500 bg-transparent border border-indigo-500 rounded hover:bg-indigo-500 hover:text-white hover:border-transparent"
+            onClick={() => {
+              localStorage.removeItem("token");
+              navigate("/login");
+            }}
+          >
+            Logout
+          </button>
+        </div>
       </div>
     </div>
   );

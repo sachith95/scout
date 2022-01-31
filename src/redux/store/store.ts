@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import searchSlice from "../reducers/searchSlice";
 import favoriteSlice from "../reducers/favoriteSlice";
+import authSlice from "../reducers/authSlice";
 
 export const store = configureStore({
   reducer: {
     search: searchSlice.reducer,
     favorite: favoriteSlice.reducer,
+    auth: authSlice.reducer,
   },
 });
 

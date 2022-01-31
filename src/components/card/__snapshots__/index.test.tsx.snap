@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Card component 1`] = `
+<div
+  className="flex flex-col w-full max-w-md p-4 text-black bg-purple-300 shadow-lg rounded-xl"
+>
+  <div
+    className="flex items-center justify-between"
+  >
+    <div
+      className="flex items-center space-x-4"
+    >
+      <div
+        className="font-bold text-md"
+      >
+        test
+      </div>
+    </div>
+    <div
+      className="flex items-center space-x-4"
+    >
+      <div
+        className="text-gray-500 cursor-pointer hover:text-gray-300"
+        onClick={[Function]}
+      >
+        <svg
+          className="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 23 23"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div
+    className="mt-4 text-sm font-bold text-gray-500"
+  />
+</div>
+`;

@@ -47,6 +47,13 @@ export default function Search(props: any) {
     setSelectedRestaurant({ _id, name });
   };
 
+  const filterOutFavorite = (val: any) => {
+    const favCollection = favoriteValue
+      .flatMap((item: any) => item.restaurantId)
+      .map((item: any) => item._id);
+    return favCollection.includes(val);
+  };
+
   useEffect(() => {
     dispatch(getFavoriteValueAsync());
   }, []);
@@ -110,7 +117,7 @@ export default function Search(props: any) {
                 key={item._id}
                 name={item.name}
                 openingHours={item.opening_hours}
-                liked="false"
+                liked={filterOutFavorite(item._id)}
                 likeAction={() => handleLikeAction(item._id, item.name)}
               ></Card>
             ))}
@@ -124,7 +131,10 @@ export default function Search(props: any) {
           {showModal ? (
             <Modal
               Close={() => setShowModal(false)}
-              Save={(val) => handleAddToFavorite(val)}
+              Save={(val) => {
+                handleAddToFavorite(val);
+                setShowModal(false);
+              }}
               message={modalMessage}
               collectionsList={
                 favoriteValue.length > 0

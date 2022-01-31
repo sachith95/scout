@@ -1,9 +1,13 @@
+import { useState } from "react";
+
 export default function Card(props: {
   name: string;
   likeAction: () => void;
   liked?: any;
   openingHours?: string;
 }) {
+  const [Like, setLike] = useState(props.liked);
+
   return (
     <div className="flex flex-col w-full max-w-md p-4 text-black bg-purple-300 shadow-lg rounded-xl">
       <div className="flex items-center justify-between">
@@ -13,12 +17,15 @@ export default function Card(props: {
         <div className="flex items-center space-x-4">
           <div
             className="text-gray-500 cursor-pointer hover:text-gray-300"
-            onClick={() => props.likeAction()}
+            onClick={() => {
+              props.likeAction();
+              setLike(!Like);
+            }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-5 h-5"
-              fill={props.liked ? "red" : "none"}
+              fill={Like ? "red" : "none"}
               viewBox="0 0 23 23"
               stroke="currentColor"
             >
