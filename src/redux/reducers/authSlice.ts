@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { login } from "../../services/authService";
+import { login, register } from "../../services/authService";
 
 export interface AuthState {
   value: any;
@@ -42,6 +42,33 @@ export const loginAsync = createAsyncThunk(
   }
 );
 
+export const RegisterAsync = createAsyncThunk(
+  "auth/setRegisterAsync",
+  async (
+    user: any,
+    {
+      rejectWithValue = null,
+      requestId,
+      getState,
+    }: {
+      rejectWithValue: any;
+      requestId: string;
+      getState: () => any;
+    }
+  ) => {
+    const { currentRequestId, status } = getState().auth;
+    if (status !== "pending" || requestId !== currentRequestId) {
+      return;
+    }
+    try {
+      const response: any = await register(user);
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -55,6 +82,7 @@ const authSlice = createSlice({
       .addCase(loginAsync.pending, (state, action) => {
         if (state.status === "idle") {
           state.status = "pending";
+          state.error = null;
           state.currentRequestId = action.meta.requestId;
         }
       })
@@ -78,7 +106,33 @@ const authSlice = createSlice({
         ) {
           state.status = "idle";
           state.error = action.payload;
-          console.log(state.error);
+          state.currentRequestId = undefined;
+        }
+      })
+      .addCase(RegisterAsync.pending, (state, action) => {
+        if (state.status === "idle") {
+          state.status = "pending";
+          state.currentRequestId = action.meta.requestId;
+        }
+      })
+      .addCase(RegisterAsync.fulfilled, (state, action) => {
+        const { requestId } = action.meta;
+        if (
+          state.status === "pending" &&
+          state.currentRequestId === requestId
+        ) {
+          state.status = "idle";
+          state.currentRequestId = undefined;
+        }
+      })
+      .addCase(RegisterAsync.rejected, (state, action) => {
+        const { requestId } = action.meta;
+        if (
+          state.status === "pending" &&
+          state.currentRequestId === requestId
+        ) {
+          state.status = "idle";
+          state.error = action.payload;
           state.currentRequestId = undefined;
         }
       });

@@ -6,6 +6,7 @@ import Home from "./pages/home";
 import Search from "./pages/search";
 import Login from "./pages/login";
 import Favorites from "./pages/favorites";
+import Register from "./pages/register";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="search" element={<Search />} />
         <Route path="favorite" element={<Favorites />} />
         <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
         <Route path="*" element={<div>Not Found</div>} />
       </Route>
     </Routes>

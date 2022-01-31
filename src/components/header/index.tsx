@@ -1,7 +1,12 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Header(props: any) {
   const navigate = useNavigate();
+  const [isLogged, setIsLogged] = useState("");
+  useEffect(() => {
+    setIsLogged(localStorage.getItem("token") || "");
+  }, []);
   return (
     <div className="container w-full mx-auto">
       <div className="flex items-center justify-between w-full">
@@ -16,15 +21,37 @@ export default function Header(props: any) {
         </a>
         {/* logout */}
         <div className="flex items-center">
-          <button
-            className="px-4 py-2 my-4 font-semibold text-indigo-500 bg-transparent border border-indigo-500 rounded hover:bg-indigo-500 hover:text-white hover:border-transparent"
-            onClick={() => {
-              localStorage.removeItem("token");
-              navigate("/login");
-            }}
-          >
-            Logout
-          </button>
+          {localStorage.getItem("token") ? (
+            <button
+              className="px-4 py-2 my-4 font-semibold text-indigo-500 bg-transparent border border-indigo-500 rounded hover:bg-indigo-500 hover:text-white hover:border-transparent"
+              disabled={isLogged ? false : true}
+              onClick={() => {
+                localStorage.removeItem("token");
+                navigate("/login");
+              }}
+            >
+              Logout
+            </button>
+          ) : (
+            <>
+              <button
+                className="px-4 py-2 mx-2 my-4 font-semibold text-indigo-500 bg-transparent border border-indigo-500 rounded hover:bg-indigo-500 hover:text-white hover:border-transparent"
+                onClick={() => {
+                  navigate("/register");
+                }}
+              >
+                Register
+              </button>
+              <button
+                className="px-4 py-2 mx-2 my-4 font-semibold text-indigo-500 bg-transparent border border-indigo-500 rounded hover:bg-indigo-500 hover:text-white hover:border-transparent"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                Login
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>

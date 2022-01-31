@@ -16,3 +16,18 @@ export function login(data: any) {
       });
   });
 }
+
+export function register(data: any) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`/user/register`, {
+        user: data,
+      })
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error.response.data);
+      });
+  });
+}
